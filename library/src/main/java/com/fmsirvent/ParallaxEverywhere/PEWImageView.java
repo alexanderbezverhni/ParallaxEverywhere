@@ -359,9 +359,8 @@ public class PEWImageView extends ImageView {
      *      must be larger or equal than 1.0f
      */
     public void setFactor(float factor) {
-        if(factor < 1.0f){
+        if (factor < 1.0f)
             throw new IllegalArgumentException("Factor value must be larger or equal than 1.0f !");
-        }
 
         this.factor = factor;
     }
