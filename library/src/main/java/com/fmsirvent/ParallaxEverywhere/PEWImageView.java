@@ -366,9 +366,10 @@ public class PEWImageView extends ImageView {
     }
 
     /**
-     * Returns either {@value #FACTOR_DEFAULT} (default value, when none factor is applied) or value >= 1.0f.
+     * Get parallax animation bounds factor.
 	 *
      * @return
+     *     either {@value #FACTOR_DEFAULT} (default value, when none factor is applied) or value that is larger or equal to 1.0f.
      */
     public float getFactor(){
 		return factor;
