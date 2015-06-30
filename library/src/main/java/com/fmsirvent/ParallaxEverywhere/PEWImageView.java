@@ -158,7 +158,7 @@ public class PEWImageView extends ImageView {
 
         float factor = arr.getFloat(R.styleable.PEWAttrs_factor, FACTOR_DEFAULT);
         if (factor != FACTOR_DEFAULT)
-		    setFactor(factor);
+            setFactor(factor);
 
         reverseX = false;
         reverseY = false;
@@ -224,37 +224,36 @@ public class PEWImageView extends ImageView {
                     break;
             }
 
-			scrollSpaceY = getScrollSpace(vheight, dnewHeight, factor);
-			scrollSpaceX = getScrollSpace(vwidth, dnewWidth, factor);
+            scrollSpaceY = getScrollSpace(vheight, dnewHeight, factor);
+            scrollSpaceX = getScrollSpace(vwidth, dnewWidth, factor);
         }
         applyParallax();
     }
 
-	private float getScrollSpace(int viewEdgeSize, float imageEdgeSize, float factor){
-		if (viewEdgeSize > imageEdgeSize){
-			return 0;
-		}
+    private float getScrollSpace(int viewEdgeSize, float imageEdgeSize, float factor){
+        if (viewEdgeSize > imageEdgeSize){
+            return 0;
+        }
 
-		float maxScrollSpace = imageEdgeSize - viewEdgeSize;
-		if (factor == FACTOR_DEFAULT) {
-			return maxScrollSpace;
-		}
+        float maxScrollSpace = imageEdgeSize - viewEdgeSize;
+        if (factor == FACTOR_DEFAULT) {
+            return maxScrollSpace;
+        }
 
-		float factored = viewEdgeSize * (factor - 1.0f);
-		return Math.min(factored, maxScrollSpace);
-	}
+        float factored = viewEdgeSize * (factor - 1.0f);
+        return Math.min(factored, maxScrollSpace);
+    }
 
     private void parallaxAnimation() {
         initSizeScreen();
 
         applyParallax();
-
     }
 
     private void initSizeScreen() {
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             Point size = new Point();
             display.getSize(size);
             screenHeight = size.y;
@@ -298,7 +297,7 @@ public class PEWImageView extends ImageView {
     }
 
     private void setMyScrollX(int value) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             setScrollX(value);
         } else {
             scrollTo(value, getScrollY());
@@ -306,7 +305,7 @@ public class PEWImageView extends ImageView {
     }
 
     private void setMyScrollY(int value) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             setScrollY(value);
         } else {
             scrollTo(getScrollX(),value);
@@ -347,6 +346,11 @@ public class PEWImageView extends ImageView {
 
     public void setBlockParallaxY(boolean blockParallaxY) {
         this.blockParallaxY = blockParallaxY;
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        super.scrollTo(isBlockParallaxX() ? 0 : x, isBlockParallaxY() ? 0 : y);
     }
 
     /**
